@@ -4,6 +4,7 @@ import seaborn as sns
 
 
 df = pd.read_csv('accelerometer_gyro_mobile_phone_dataset.csv')
+# Удалил поле с временным отпечатком, так как он тут не несет никакой смысловой нагрузки
 df = df.drop('timestamp', axis=1)
 
 print(df.describe())
@@ -12,6 +13,9 @@ print("Названия столбцов:", df.columns)
 print("Названия строк:", df.index)
 
 
+# Визулизация каждого признака
+
+# аккселерометр
 sns.histplot(df['accX'])
 plt.title('Распределение значений accX')
 plt.show()
@@ -36,8 +40,7 @@ sns.histplot(x='Activity', y='accZ', data=df)
 plt.title('accZ для активных и неактивных пользователей')
 plt.show()
 
-
-
+# гироскоп
 sns.histplot(df['gyroX'])
 plt.title('Распределение значений gyroX')
 plt.show()
@@ -45,7 +48,6 @@ plt.show()
 sns.histplot(x='Activity', y='gyroX', data=df)
 plt.title('gyroX для активных и неактивных пользователей')
 plt.show()
-
 
 sns.histplot(df['gyroY'])
 plt.title('Распределение значений gyroY')
@@ -66,14 +68,11 @@ plt.show()
 
 
 
+# Групповые визуализации
 
-
-# 5.2) Групповые визуализации
-# Pairplot
 sns.pairplot(df[['accX', 'accY', 'accZ', 'Activity']], hue='Activity', kind='scatter')
 plt.show()
 
-# Heatmap корреляций
 sns.heatmap(df.corr(), annot=True, cmap='coolwarm')
 plt.title('Корреляционная матрица')
 plt.show()
